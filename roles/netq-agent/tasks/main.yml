@@ -15,8 +15,8 @@
 
 # Set netq-agent configuration
 - name: Set netq-agent configuration
-  template: src=netq-agent.yml dest=/etc/cumulus/netq-agent.conf
-  notify: reload netq-agent
+  template: src=netq-agent.yml dest=/etc/netq/netq-agent.conf
+  notify: restart netq-agent
 
 # Start the netq-agent
 - name: Start netq-agent

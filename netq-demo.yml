@@ -6,12 +6,12 @@
   roles:
     - netq-agent
 #    - netq-cli
-#- hosts: spines
-#  user: cumulus
-#  become: yes
-#  become_method: sudo
-#  roles:
-#    - netq-agent
+- hosts: spines
+  user: cumulus
+  become: yes
+  become_method: sudo
+  roles:
+    - netq-agent
 #    - netq-cli
 #- hosts: servers
 #  user: cumulus
