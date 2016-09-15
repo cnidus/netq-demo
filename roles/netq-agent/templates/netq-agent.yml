@@ -1,0 +1,3 @@
+{% set netqvars = services["netq"] %}
+# Created by Ansible
+server {{netqvars.redis_ip}}

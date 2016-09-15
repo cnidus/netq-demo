@@ -1,0 +1,4 @@
+#Services
+services:
+   netq:
+      redis_ip: 192.168.0.254

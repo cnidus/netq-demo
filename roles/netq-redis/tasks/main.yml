@@ -1,0 +1,15 @@
+# Install redis packages
+- name: Add the redis-server package
+  apt: name=redis-server update_cache=yes
+
+- name: Add redis-tools package
+  apt: name=redis-tools update_cache=yes
+
+# Set redis-server configuration
+- name: Set redis-server configuration
+  template: src=redis-server.yml dest=/etc/redis/redis.conf
+  notify: restart redis-server
+
+# Start the redis server
+- name: Start redis
+  service: name=redis-server state=started

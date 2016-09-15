@@ -1,0 +1,5 @@
+# 
+# This handler ensures the redis server is configured and started properly
+#
+- name: restart redis-server
+  command: service redis-server restart

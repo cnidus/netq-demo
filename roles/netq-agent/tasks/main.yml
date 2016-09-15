@@ -1,0 +1,23 @@
+# Add the EA repo to the sources list
+- name: Enable EA deb apt repo
+  apt_repository: repo='deb http://repo3.cumulusnetworks.com/repo CumulusLinux-3-early-access cumulus' state=present
+
+- name: Enable EA deb-src apt repo
+  apt_repository: repo='deb-src http://repo3.cumulusnetworks.com/repo CumulusLinux-3-early-access cumulus' state=present
+
+# Install netq-agent package
+- name: Add the netq-agent package
+  apt: name=cumulus-netq update_cache=yes
+
+# Ensure ntpd is running
+- name: Ensure ntp is running
+  service: name=ntp state=started
+
+# Set netq-agent configuration
+- name: Set netq-agent configuration
+  template: src=netq-agent.yml dest=/etc/cumulus/netq-agent.conf
+  notify: reload netq-agent
+
+# Start the netq-agent
+- name: Start netq-agent
+  service: name=netq-agent state=started
