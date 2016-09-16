@@ -4,22 +4,22 @@
   become: yes
   become_method: sudo
   roles:
-    - netq-redis
+#    - netq-redis
     - netq-cli
 
-- hosts: leafs
-  user: cumulus
-  become: yes
-  become_method: sudo
-  roles:
-    - netq-agent
+#- hosts: leafs
+#  user: cumulus
+#  become: yes
+#  become_method: sudo
+#  roles:
+#    - netq-agent
 
-- hosts: spines
-  user: cumulus
-  become: yes
-  become_method: sudo
-  roles:
-    - netq-agent
+#- hosts: spines
+#  user: cumulus
+#  become: yes
+#  become_method: sudo
+#  roles:
+#    - netq-agent
 
 - hosts: servers
   user: cumulus
