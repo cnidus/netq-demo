@@ -1,0 +1,16 @@
+{% set netqvars = services["netq"] %}
+# Created by Ansible
+[DEFAULT]
+logdest = /var/log/netq-agent.log
+entry_retention_count = 10
+dbconfig = /etc/netq/netq-agent-commands.json
+loglevel = INFO
+logfilesize = 512000
+server = None
+concurrency = 1000
+logbackupcount = 14
+debug = False
+eventlet_backdoor_port = 9001
+
+[common]
+server = {{netqvars.redis_ip}}

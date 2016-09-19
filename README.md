@@ -10,29 +10,48 @@ cldemo-vagrant - https://github.com/CumulusNetworks/cldemo-vagrant
 cldemo-automation-ansible - https://github.com/CumulusNetworks/cldemo-automation-ansible
 
 # Installing the demo
-Firstly, you will need to install VirtualBox and Vagrant, to support the cldemo-vagrant reference topology shown above. That project has good documentation on gettign the base envrionment up.
+Firstly, you will need to install VirtualBox and Vagrant, to support the cldemo-vagrant reference topology shown above. That project has good documentation on getting the base environment up.
 
 Next, follow the procedure in cldemo-automation-ansible to provision the 2-spine, 2-leaf, 2-server environment.
 
 Once you have provisioned and run base configuration, get to the oob-mgmt-server.
 
-Dougs-MBP:cldemo-vagrant doug$ vagrant ssh oob-mgmt-server
-Welcome to Ubuntu 14.04.4 LTS (GNU/Linux 4.2.0-27-generic x86_64)
+    Dougs-MBP:cldemo-vagrant doug$ vagrant ssh oob-mgmt-server
+    Welcome to Ubuntu 14.04.4 LTS (GNU/Linux 4.2.0-27-generic x86_64)
 
- * Documentation:  https://help.ubuntu.com/
-----------------------------------------------------------------
-  Ubuntu 14.04.4 LTS                          built 2016-06-06
-----------------------------------------------------------------
-Last login: Wed Sep 14 20:34:34 2016 from 10.0.2.2
-vagrant@oob-mgmt-server:~$ su - cumulus
-Password: 
-cumulus@oob-mgmt-server:~$ 
+     * Documentation:  https://help.ubuntu.com/
+    ----------------------------------------------------------------
+      Ubuntu 14.04.4 LTS                          built 2016-06-06
+    ----------------------------------------------------------------
+    Last login: Wed Sep 14 20:34:34 2016 from 10.0.2.2
+    vagrant@oob-mgmt-server:~$ su - cumulus
+    Password: 
+    cumulus@oob-mgmt-server:~$ 
 
-Password is the defualt: "CumulusLinux!"
+Password is the default: "CumulusLinux!"
 
-Clone the repo into the cumulus home directory, get into that directory::
-cumulus@oob-mgmt-server:~$ git clone https://github.com/cnidus/netq-demo.git
-cumulus@oob-mgmt-server:~$ cd netq-demo
+Clone the repo into the cumulus home directory, get into that directory:
+    cumulus@oob-mgmt-server:~$ git clone https://github.com/cnidus/netq-demo.git
+    cumulus@oob-mgmt-server:~$ cd netq-demo
 
-.... to be continue, once I have it working.d
+Run the playbook
+    cumulus@oob-mgmt-server:~$ ansible-playbook netq-demo.yml
 
+Verify the agents are responding
+    cumulus@oob-mgmt-server:~$ netq agent status
+
+# Quickstart
+Run the following commands from your vagrant host to setup the environment.
+
+    git clone https://github.com/cumulusnetworks/cldemo-vagrant
+    cd cldemo-vagrant
+    vagrant up oob-mgmt-server oob-mgmt-switch leaf01 leaf02 spine01 spine02 server01 server02
+    vagrant ssh oob-mgmt-server
+    sudo su - cumulus
+    sudo apt-get install software-properties-common -y
+    sudo apt-add-repository ppa:ansible/ansible -y
+    sudo apt-get update
+    sudo apt-get install ansible -qy
+    git clone https://github.com/cumulusnetworks/cldemo-automation-ansible
+    cd cldemo-automation-ansible
+    ansible-playbook run-demo.yml
