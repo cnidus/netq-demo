@@ -16,8 +16,26 @@
   apt_repository: repo='deb-src [arch=amd64] http://repo3.cumulusnetworks.com/repo CumulusLinux-3-updates cumulus upstream' state=present update_cache=no
 
 # Install netq-agent package
-- name: Add the netq package
-  apt: name=cumulus-netq update_cache=yes allow_unauthenticated=yes
+#- name: Add the netq package
+#  apt: name=cumulus-netq update_cache=yes allow_unauthenticated=yes
+
+# Check if netq-dev is installed
+- name: check netq package status
+  command: dpkg-query -W python-netq_0.1-cl3eau1_all
+  register: netq_dev_check_deb
+  failed_when: netq_dev_check_deb.rc > 1
+  changed_when: netq_dev_check_deb.rc == 1
+
+# Push the dev build of netq
+- name: Copy NetQ dev package
+  copy: src=python-netq_0.1-cl3eau1_all.deb dest=/home/cumulus/python-netq_0.1-cl3eau1_all.deb owner=cumulus group=cumulus mode=644
+#  when: netq_dev_check_deb.rc ==1
+
+# Install dev build of netq
+- name: Install netq dev build
+  apt: deb="/home/cumulus/python-netq_0.1-cl3eau1_all.deb"
+  sudo: true
+#  when: netq_dev_check_deb.rc ==1
 
 # Ensure ntpd is running
 - name: Ensure ntp is running
