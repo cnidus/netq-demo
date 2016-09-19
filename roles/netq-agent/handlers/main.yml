@@ -1,0 +1,5 @@
+# 
+# This handler ensures the netq agent is configured and started properly
+#
+- name: restart netq-agent
+  service: name=netq-agent state=restarted

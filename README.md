@@ -38,7 +38,13 @@ Run the playbook
     cumulus@oob-mgmt-server:~$ ansible-playbook netq-demo.yml
 
 Verify the agents are responding
-    cumulus@oob-mgmt-server:~$ netq agent status
+    cumulus@oob-mgmt-server:~/netq-demo$ netq health agent
+    Node Name    Connect Time         Time Since Connect    Status
+    -----------  -------------------  --------------------  --------
+    leaf01       2016-09-19 16:36:11  just now              Fresh
+    leaf02       2016-09-19 16:36:11  just now              Fresh
+    spine01      2016-09-19 16:37:18  23 seconds ago        Fresh
+    spine02      2016-09-19 16:37:18  23 seconds ago        Fresh
 
 # Quickstart
 Run the following commands from your vagrant host to setup the environment.
@@ -55,3 +61,8 @@ Run the following commands from your vagrant host to setup the environment.
     git clone https://github.com/cumulusnetworks/cldemo-automation-ansible
     cd cldemo-automation-ansible
     ansible-playbook run-demo.yml
+    cd ..
+    git clone https://github.com/cnidus/netq-demo.git
+    cd netq-demo
+    ansible-playbook netq-demo.yml
+    netq health agent
