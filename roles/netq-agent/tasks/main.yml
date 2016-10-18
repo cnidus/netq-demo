@@ -24,7 +24,8 @@
 # Install dev build of netq
 - name: Install netq dev build
   apt: deb="/home/cumulus/python-netq_0.1-cl3eau1_all.deb"
-  sudo: true
+  become: true
+  become_method: sudo
 #  when: netq_dev_check_deb.rc ==1
   notify: restart netq-agent
 
